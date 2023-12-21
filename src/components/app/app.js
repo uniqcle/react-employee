@@ -37,7 +37,26 @@ class App extends Component {
         },
       ],
     };
+
+    this.maxId = 4;
   }
+
+  addItem = (e, item) => {
+    e.preventDefault();
+
+    let newItem = { id: this.maxId++, ...item };
+
+    console.log(newItem);
+
+    this.setState(({ data }) => {
+      let newData = [ ...data,  newItem   ];
+      console.log(newData)
+      
+      return {
+        data: newData,
+      };
+    });
+  };
 
   deleteItem = (id) => {
     this.setState(({ data }) => {
@@ -75,7 +94,7 @@ class App extends Component {
         </div>
 
         <EmployersList data={this.state.data} onDelete={this.deleteItem} />
-        <AddForm />
+        <AddForm onAdd={this.addItem} />
       </div>
     );
   }

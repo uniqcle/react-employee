@@ -7,7 +7,9 @@ class AddForm extends Component {
     super(props);
     this.state = {
       name: "",
+      surname: "",
       salary: 0,
+      increase: false
     };
   }
 
@@ -17,13 +19,18 @@ class AddForm extends Component {
     });
   };
 
+
   render() {
+    const { onAdd } = this.props;
     const { name, salary } = this.state;
 
     return (
       <div className="app-add-form">
         <h3>Добавьте нового сотрудника</h3>
-        <form className="add-form d-flex">
+        <form
+          onSubmit={(e) => onAdd(e, this.state)}
+          className="add-form d-flex"
+        >
           <input
             type="text"
             className="form-control new-post-label"
