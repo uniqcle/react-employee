@@ -47,16 +47,26 @@ class App extends Component {
   addItem = (e, item) => {
     e.preventDefault();
 
-    let newItem = { id: this.maxId++, ...item };
+    if (this.validateUserAdd(item)) {
+      let newItem = { id: this.maxId++, ...item };
 
-    this.setState(({ data }) => {
-      let newData = [...data, newItem];
-      console.log(newData);
+      this.setState(({ data }) => {
+        let newData = [...data, newItem];
+        console.log(newData);
 
-      return {
-        data: newData,
-      };
-    });
+        return {
+          data: newData,
+        };
+      });
+    }
+    return;
+  };
+
+  validateUserAdd = (item) => {
+    if (item && item.name !== "") {
+      return true;
+    }
+    return false;
   };
 
   deleteItem = (id) => {
@@ -116,24 +126,22 @@ class App extends Component {
     }));
   };
 
-  
   onToggleProp = (id, prop) => {
-    this.setState(({ data }) =>({
-      data: data.map(item => {
+    this.setState(({ data }) => ({
+      data: data.map((item) => {
         if (item.id === id) {
-          return {...item, [prop]: !item[prop]}
+          return { ...item, [prop]: !item[prop] };
         }
-        return item; 
-      })
-    }))
-  }
+        return item;
+      }),
+    }));
+  };
 
   countIncreaseEmployers = () => {
-
-    return this.state.data.filter(empl => {
-      return empl.increase === true
-    }).length; 
-  }
+    return this.state.data.filter((empl) => {
+      return empl.increase === true;
+    }).length;
+  };
 
   render() {
     let allEmploy = this.state.data.length;
