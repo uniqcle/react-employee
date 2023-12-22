@@ -9,7 +9,8 @@ class AddForm extends Component {
       name: "",
       surname: "",
       salary: 0,
-      increase: false
+      increase: false,
+      rise: false,
     };
   }
 
