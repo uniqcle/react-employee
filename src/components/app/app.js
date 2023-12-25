@@ -40,6 +40,7 @@ class App extends Component {
         },
       ],
       search: "",
+      filter: 'all'
     };
 
     this.maxId = 4;
@@ -158,10 +159,32 @@ class App extends Component {
     this.setState({ search: search });
   };
 
+  filterBy = (items, filter) => {
+      switch (filter) {
+        case "increase":
+          return items.filter((item) =>item.increase);
+        case "rise":
+          return items.filter((item) => item.rise);
+        default:
+          return items;
+      }
+ 
+  };
+
+  onToggleFilter = (e) => {
+    const filterAttr = e.target.getAttribute("data-filter");
+
+    this.setState(({ filter }) => {
+      return {
+        filter: filterAttr
+      }
+    })
+  };
+
   render() {
     let allEmploy = this.state.data.length;
-    const { data, search } = this.state;
-    const visibleData = this.searchEmploy(data, search);
+    const { data, search, filter } = this.state;
+    const filteredData = this.filterBy(this.searchEmploy(data, search), filter);
 
     return (
       <div className="app">
@@ -169,11 +192,14 @@ class App extends Component {
 
         <div className="search-panel">
           <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-          <AppFilter />
+          <AppFilter
+            onToggleFilter={this.onToggleFilter}
+            filter={this.state.filter}
+          />
         </div>
 
         <EmployersList
-          data={visibleData}
+          data={filteredData}
           onDelete={this.deleteItem}
           onToggleIncrease={this.onToggleIncrease}
           onToggleProp={this.onToggleProp}
