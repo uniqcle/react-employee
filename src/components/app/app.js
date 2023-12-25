@@ -39,6 +39,7 @@ class App extends Component {
           rise: false,
         },
       ],
+      search: ''
     };
 
     this.maxId = 4;
@@ -143,8 +144,22 @@ class App extends Component {
     }).length;
   };
 
+
+  searchEmploy = (items, search) => {
+    if (search.length === 0) {
+      return items; 
+    }
+
+    return items.filter(item => {
+      return item.name.indexOf(search) > -1
+    })
+
+  }
+
   render() {
     let allEmploy = this.state.data.length;
+    const { data, search } = this.state;
+    const visibleData = this.searchEmploy(data, search);
 
     return (
       <div className="app">
@@ -156,7 +171,7 @@ class App extends Component {
         </div>
 
         <EmployersList
-          data={this.state.data}
+          data={visibleData}
           onDelete={this.deleteItem}
           onToggleIncrease={this.onToggleIncrease}
           onToggleProp={this.onToggleProp}
