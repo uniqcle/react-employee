@@ -25,6 +25,7 @@ const EmployerItem = ({
         onClick={onToggleProp}
         className="list-group-item-label"
         data-toggle="rise"
+        // style={{ fontSize: 26, color: "red" }}
       >
         {name + " " + surname}
       </span>

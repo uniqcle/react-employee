@@ -2,12 +2,12 @@ import "./app-filter.css";
 
 const AppFilter = ({ filter, onToggleFilter }) => {
   const buttonsData = [
-    { name: "all", label: "Все сотрудники" },
-    { name: "increase", label: "На повышение" },
-    { name: "rise", label: "З/П больше 100 000 руб." },
+    { name: "all", label: "Все сотрудники", colored: false },
+    { name: "increase", label: "На повышение", colored: false },
+    { name: "rise", label: "З/П больше 100 000 руб.", colored: true },
   ];
 
-  const buttons = buttonsData.map(({ name, label }) => {
+  const buttons = buttonsData.map(({ name, label, colored }) => {
     const active = filter === name;
     const clazz = active ? "btn-light" : "btn-outline-light";
 
@@ -18,6 +18,8 @@ const AppFilter = ({ filter, onToggleFilter }) => {
         data-filter={name}
         key={name}
         onClick={onToggleFilter}
+        //динамические стили
+        style={colored ? { color: "orange" } : null}
       >
         {label}
       </button>
