@@ -39,7 +39,7 @@ class App extends Component {
           rise: false,
         },
       ],
-      search: ''
+      search: "",
     };
 
     this.maxId = 4;
@@ -144,17 +144,19 @@ class App extends Component {
     }).length;
   };
 
-
   searchEmploy = (items, search) => {
     if (search.length === 0) {
-      return items; 
+      return items;
     }
 
-    return items.filter(item => {
-      return item.name.indexOf(search) > -1
-    })
+    return items.filter((item) => {
+      return item.name.indexOf(search) > -1;
+    });
+  };
 
-  }
+  onUpdateSearch = (search) => {
+    this.setState({ search: search });
+  };
 
   render() {
     let allEmploy = this.state.data.length;
@@ -166,7 +168,7 @@ class App extends Component {
         <AppInfo allEmploy={allEmploy} count={this.countIncreaseEmployers} />
 
         <div className="search-panel">
-          <SearchPanel />
+          <SearchPanel onUpdateSearch={this.onUpdateSearch} />
           <AppFilter />
         </div>
 
